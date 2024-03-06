@@ -3,12 +3,12 @@ import requests
 
 # 指定网址列表
 urls = [
-    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/JP.txt",
-    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/HK.txt",
-    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/TW.txt",
-    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/KR.txt",
-    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/SG.txt",
-    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/US.txt"
+    "https://raw.githubusercontent.com/wokaotianshi123/cfipyouxuan/main/resip/JP.txt",
+    "https://raw.githubusercontent.com/wokaotianshi123/cfipyouxuan/main/resip/HK.txt",
+    "https://raw.githubusercontent.com/wokaotianshi123/cfipyouxuan/main/resip/TW.txt",
+    "https://raw.githubusercontent.com/wokaotianshi123/cfipyouxuan/main/resip/KR.txt",
+    "https://raw.githubusercontent.com/wokaotianshi123/cfipyouxuan/main/resip/SG.txt",
+    "https://raw.githubusercontent.com/wokaotianshi123/cfipyouxuan/main/resip/US.txt"
 ]
 
 # 遍历每个网址
