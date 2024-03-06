@@ -3,9 +3,9 @@ import requests
 
 # 指定网址列表
 urls = [
-    "https://raw.githubusercontent.com/Garfyyy/cfip2/main/ip443/JP.txt",
-    "https://raw.githubusercontent.com/Garfyyy/cfip2/main/ip443/HK.txt",
-    "https://raw.githubusercontent.com/Garfyyy/cfip2/main/ip443/US.txt"
+    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/JP.txt",
+    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/HK.txt",
+    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/US.txt"
 ]
 
 # 遍历每个网址
