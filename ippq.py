@@ -9,19 +9,16 @@ html_content = response.content
 # 使用BeautifulSoup解析HTML
 soup = BeautifulSoup(html_content, "html.parser")
 
-# 找到表格
-table = soup.find("table")
-
-# 初始化列表存储IP和Colo值
+# 找到IP和Colo列表
 ip_list = []
 colo_list = []
 
-# 遍历表格行
-for row in table.find_all("tr")[1:]:  # 从第二行开始,跳过表头
-    columns = row.find_all("td")
-    if columns:
-        ip = columns[0].text.strip()
-        colo = columns[1].text.strip()
+# 遍历表格数据
+for tr in soup.find_all("tr"):
+    tds = tr.find_all("td")
+    if len(tds) >= 2:
+        ip = tds[0].text.strip()
+        colo = tds[1].text.strip()
         ip_list.append(ip)
         colo_list.append(colo)
 
