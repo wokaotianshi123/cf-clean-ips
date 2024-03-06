@@ -6,26 +6,32 @@ on:
   schedule:
     - cron: '0 3 * * *'
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-    
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      
+
       - name: Install dependencies
         run: pip install dnspython requests beautifulsoup4
-      - name: Run ippq 
-        run: python ${{ github.workspace }}/ippq.py
-          #python ipushkjp.py
-          #python collect.py 
 
-      - name: 提交更改
+      - name: Remove old cs.txt file
+        run: |
+          if [ -f "${{ github.workspace }}/cs.txt" ]; then
+            rm "${{ github.workspace }}/cs.txt"
+          fi
+
+      - name: Run ippq
+        run: python ${{ github.workspace }}/ippq.py
+
+      - name: Commit changes
         run: |
           git config --global user.email "chenhua.xu@qq.com"
           git config --global user.name "wokaotianshi123"
