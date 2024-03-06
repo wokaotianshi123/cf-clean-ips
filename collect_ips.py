@@ -1,5 +1,10 @@
+import os
 import requests
 from bs4 import BeautifulSoup
+
+# 删除原有的ip.txt文件(如果存在)
+if os.path.exists("ip.txt"):
+    os.remove("ip.txt")
 
 # 发送GET请求获取网页内容
 url = "https://stock.hostmonit.com/CloudFlareYes"
@@ -13,8 +18,7 @@ soup = BeautifulSoup(html_content, "html.parser")
 table = soup.find("table", {"class": "table"})
 
 # 初始化列表存储IP和Colo值
-ip_list = []
-colo_list = []
+data = []
 
 # 遍历表格行
 if table:
@@ -24,12 +28,8 @@ if table:
         if len(columns) >= 2:
             ip = columns[0].text.strip()
             colo = columns[1].text.strip()
-            ip_list.append(ip)
-            colo_list.append(colo)
+            data.append(f"{ip}#{colo}")
 
-# 将IP和Colo值用#连接
-content = [f"{ip}#{colo}" for ip, colo in zip(ip_list, colo_list)]
-
-# 将结果写入cs.txt文件
-with open("cs.txt", "w", encoding="utf-8") as f:
-    f.write("\n".join(content))
+# 将结果写入ip.txt文件
+with open("ip.txt", "w", encoding="utf-8") as f:
+    f.write("\n".join(data))
