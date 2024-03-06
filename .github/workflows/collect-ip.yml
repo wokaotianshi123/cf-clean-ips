@@ -10,17 +10,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-       - name: Set up Python
-       - uses: actions/setup-python@v2
-         with:
+      - name: Checkout code
+        uses: actions/checkout@v2
+    
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
           python-version: 3.x
-       - uses: actions/checkout@v3
-       - name: Resolve domains, collect and store IP addresses
-         run: |
-          python -m pip install dnspython requests beautifulsoup4
-          python ippq.py
+      
+      - name: Install dependencies
+        run: pip install dnspython requests beautifulsoup4
+      - name: Run ippq 
+        run: python ${{ github.workspace }}/ippq.py
           #python ipushkjp.py
           #python collect.py 
+
+      - name: 提交更改
+        run: |
           git config --global user.email "chenhua.xu@qq.com"
           git config --global user.name "wokaotianshi123"
           git add -A
