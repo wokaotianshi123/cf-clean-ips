@@ -1,10 +1,5 @@
-import os
 import requests
 from bs4 import BeautifulSoup
-
-# 删除原有的cs.txt文件(如果存在)
-if os.path.exists("cs.txt"):
-    os.remove("cs.txt")
 
 # 发送GET请求获取网页内容
 url = "https://stock.hostmonit.com/CloudFlareYes"
