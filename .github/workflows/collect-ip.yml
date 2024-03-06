@@ -1,10 +1,10 @@
 name: "Collect IPs"
 
 on:
-  push:
-    branches: [ "main" ]
-  schedule:
-    - cron: '0 3 * * *'
+  #push:
+    #branches: [ "main" ]
+  #schedule:
+    #- cron: '0 3 * * *'
   workflow_dispatch:
 
 jobs:
