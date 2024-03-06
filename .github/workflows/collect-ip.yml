@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
   schedule:
-    - cron: '0 2,10 * * *'
+    - cron: '0 3 * * *'
   workflow_dispatch:
 jobs:
   build:
@@ -13,8 +13,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Resolve domains, collect and store IP addresses
         run: |
-          python -m pip install dnspython
-          python collect.py
+          python -m pip install dnspython requests
+          python ipushkjp.py
+          #python collect.py 
           git config --global user.email "chenhua.xu@qq.com"
           git config --global user.name "wokaotianshi123"
           git add -A
