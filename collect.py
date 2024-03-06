@@ -13,7 +13,7 @@ def main():
     with open('list.txt', 'w') as text_file:
         text_file.write(f"")
         for el in result["ipv4"]:
-            text_file.write(f"{el['ip']}{'#'}{el['operator']}\n")
+            text_file.write(f"{el['ip']}{':8443#'}{el['operator']}\n")
 
 
 def collect():
