@@ -5,6 +5,8 @@ import requests
 urls = [
     "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/JP.txt",
     "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/HK.txt",
+    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/IN.txt",
+    "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/SG.txt",
     "https://raw.githubusercontent.com/Garfyyy/cfip/main/resip/US.txt"
 ]
 
