@@ -1,10 +1,10 @@
 name: "Collect IPs"
 
 on:
-  #push:
-    #branches: [ "main" ]
-  #schedule:
-    #- cron: '0 3 * * *'
+  push:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 3 * * *'
   workflow_dispatch:
 
 jobs:
@@ -20,21 +20,21 @@ jobs:
           python-version: 3.x
 
       - name: Install dependencies
-        run: pip install dnspython requests beautifulsoup4
+        run: pip install requests beautifulsoup4
 
-      - name: Remove old cs.txt file
+      - name: Remove old ip.txt file
         run: |
-          if [ -f "${{ github.workspace }}/cs.txt" ]; then
-            rm "${{ github.workspace }}/cs.txt"
+          if [ -f "${{ github.workspace }}/ip.txt" ]; then
+            rm "${{ github.workspace }}/ip.txt"
           fi
 
-      - name: Run ippq
-        run: python ${{ github.workspace }}/ippq.py
+      - name: Run script
+        run: python ${{ github.workspace }}/collect_ips.py
 
       - name: Commit changes
         run: |
-          git config --global user.email "chenhua.xu@qq.com"
-          git config --global user.name "wokaotianshi123"
-          git add -A
+          git config --global user.email "your_email@example.com"
+          git config --global user.name "Your Name"
+          git add ip.txt
           git commit -m "Automatic update"
           git push
