@@ -10,20 +10,22 @@ html_content = response.content
 soup = BeautifulSoup(html_content, "html.parser")
 
 # 找到数据表格
-table = soup.find("table", {"class": "table table-striped table-bordered table-hover"})
+table = soup.find("table", {"class": "table"})
 
 # 初始化列表存储IP和Colo值
 ip_list = []
 colo_list = []
 
 # 遍历表格行
-for row in table.find_all("tr")[1:]:  # 从第二行开始,跳过表头
-    columns = row.find_all("td")
-    if len(columns) >= 2:
-        ip = columns[0].text.strip()
-        colo = columns[1].text.strip()
-        ip_list.append(ip)
-        colo_list.append(colo)
+if table:
+    rows = table.find_all("tr")
+    for row in rows:
+        columns = row.find_all("td")
+        if len(columns) >= 2:
+            ip = columns[0].text.strip()
+            colo = columns[1].text.strip()
+            ip_list.append(ip)
+            colo_list.append(colo)
 
 # 将IP和Colo值用#连接
 content = [f"{ip}#{colo}" for ip, colo in zip(ip_list, colo_list)]
