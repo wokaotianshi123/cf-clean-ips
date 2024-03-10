@@ -1,35 +1,33 @@
-import os
 import requests
 from bs4 import BeautifulSoup
+import re
 
-# 删除原有的ip.txt文件(如果存在)
-if os.path.exists("ip.txt"):
-    os.remove("ip.txt")
+# 目标URL
+url = 'https://monitor.gacjie.cn/page/cloudflare/ipv4.html'
 
-# 发送GET请求获取网页内容
-url = "https://monitor.gacjie.cn/page/cloudflare/ipv4.html"
+# 发送HTTP请求获取网页内容
 response = requests.get(url)
-html_content = response.content
 
 # 使用BeautifulSoup解析HTML
-soup = BeautifulSoup(html_content, "html.parser")
+soup = BeautifulSoup(response.text, 'html.parser')
 
-# 找到数据表格
-table = soup.find("table", {"class": "table"})
+# 找到所有包含IP地址的表格行
+rows = soup.find_all('tr')
 
-# 初始化列表存储IP和Colo值
-data = []
+# 正则表达式用于匹配IP地址
+ip_pattern = r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
 
-# 遍历表格行
-if table:
-    rows = table.find_all("tr")
+# 创建一个文件来存储IP地址
+with open('ip.txt', 'w') as file:
     for row in rows:
-        columns = row.find_all("td")
-        if len(columns) >= 2:
-            ip = columns[0].text.strip()
-            colo = columns[1].text.strip()
-            data.append(f"{ip}#{colo}")
+        # 获取表格行中的文本内容
+        row_text = row.get_text()
+        
+        # 使用正则表达式查找IP地址
+        ip_matches = re.findall(ip_pattern, row_text)
+        
+        # 如果找到IP地址，则写入文件
+        for ip in ip_matches:
+            file.write(ip + '\n')
 
-# 将结果写入ip.txt文件
-with open("ip.txt", "w", encoding="utf-8") as f:
-    f.write("\n".join(data))
+print('IP地址已保存到ip.txt文件中。')
