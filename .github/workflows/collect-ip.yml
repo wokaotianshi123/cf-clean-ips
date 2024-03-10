@@ -24,15 +24,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests
         pip install beautifulsoup4
-        
-    - name: Remove old ip.txt file
-      run: |
-          if [ -f "${{ github.workspace }}/ip.txt" ]; then
-            rm "${{ github.workspace }}/ip.txt"
-          fi
-          
+                  
     - name: Run script
-      run: python ${{ github.workspace }}/collect_ips.py
+      run: |
+        python ${{ github.workspace }}/collect_ips.py
         
     - name: Commit and push changes
       run: |
