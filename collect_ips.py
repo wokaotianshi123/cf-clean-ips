@@ -7,7 +7,7 @@ if os.path.exists("ip.txt"):
     os.remove("ip.txt")
 
 # 发送GET请求获取网页内容
-url = "https://stock.hostmonit.com/CloudFlareYes"
+url = "https://monitor.gacjie.cn/page/cloudflare/ipv4.html"
 response = requests.get(url)
 html_content = response.content
 
