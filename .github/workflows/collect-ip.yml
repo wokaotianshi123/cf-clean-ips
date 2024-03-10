@@ -27,6 +27,8 @@ jobs:
         
     - name: Run Python script
       run: |
+        import os
+        os.environ['QT_QPA_PLATFORM']='offscreen'
         import requests
         from bs4 import BeautifulSoup
         import re
