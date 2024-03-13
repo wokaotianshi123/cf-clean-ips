@@ -26,14 +26,15 @@ jobs:
         pip install beautifulsoup4
         
     - name: Run script
-      run: python ${{ github.workspace }}/collect_ips.py
-        
+      run: |
+        python ${{ github.workspace }}/collect_ips.py
+        python ${{ github.workspace }}/ipcha.py 
     - name: Commit and push changes
       run: |
         git config --global user.email "chenhua.xu@qq.com"
         git config --global user.name "wokaotianshi123"
         if [ -n "$(git status --porcelain)" ]; then
-          git add ip.txt
+          git add ip.txt jg.txt
           git commit -m "Automatic update"
           git push
         else
