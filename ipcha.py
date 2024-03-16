@@ -3,7 +3,16 @@ import os
 
 # 从远程地址读取IP地址
 def read_ips(*remote_urls):
-    # ... 保持不变 ...
+    ips = []
+    for remote_url in remote_urls:
+        try:
+            response = requests.get(remote_url)
+            response.raise_for_status()
+            ips.extend(response.text.splitlines())
+        except requests.exceptions.RequestException as e:
+            print(f"An error occurred while fetching IPs from {remote_url}: {e}")
+    return ips
+
 
 # 发送批量请求到IP-API.com并处理结果
 def get_geolocation_and_save(ips, file_jg_path, file_jgb_path):
