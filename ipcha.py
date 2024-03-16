@@ -13,7 +13,7 @@ def read_ips(*remote_urls):
     return ips
 
 # 发送批量请求到IP-API.com并打印结果
-def get_geolocation_and_print(ips):
+def get_geolocation_and_save(ips, file_with_hash, file_without_hash):
     url = "http://ip-api.com/batch"
     # 构建请求数据
     payload = ips
@@ -24,15 +24,19 @@ def get_geolocation_and_print(ips):
         response = requests.post(url, json=payload, headers=headers)
         if response.status_code == 200:
             results = response.json()
-            for item in results:
-                if 'query' in item and 'countryCode' in item:
-                    output = f"{item['query']}#{item['countryCode']}"
-                    print(output)
-                    # 保存到文件
-                    with open('jg.txt', 'a') as file:
-                        file.write(output + '\n')
-                else:
-                    print(f"Incomplete data for IP: {item['query']}")
+            with open(file_with_hash, 'a') as file_with_hash_obj, open(file_without_hash, 'a') as file_without_hash_obj:
+                for item in results:
+                    if 'query' in item and 'countryCode' in item:
+                        # 保存到文件时添加#
+                        output_with_hash = f"{item['query']}#{item['countryCode']}"
+                        file_with_hash_obj.write(output_with_hash + '\\n')
+                        print(output_with_hash)  # 打印带#的输出
+                    else:
+                        # 保存到文件时不添加#
+                        output_without_hash = f"{item['query']}{item['countryCode']}"
+                        file_without_hash_obj.write(output_without_hash + '\\n')
+                        print(output_without_hash)  # 打印不带#的输出
+                    print(f"Incomplete data for IP: {item['query']}")  # 如果数据不完整，打印提示
         else:
             print(f"Error: Received response with status code {response.status_code}")
     except requests.exceptions.RequestException as e:
@@ -48,7 +52,7 @@ def main():
     # 读取IP地址
     ips = read_ips(*remote_urls)
     if ips:
-        get_geolocation_and_print(ips)
+        get_geolocation_and_save(ips, 'jg.txt', 'jgb.txt')
 
 if __name__ == "__main__":
     main()
