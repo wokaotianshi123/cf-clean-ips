@@ -12,5 +12,5 @@ https://stock.hostmonit.com/CloudFlareYes
 
 cfip脚本可以在手机termux上使用
 ```
-[链接](https://ghproxy.net/https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/cfip.sh)https://ghproxy.net/https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/cfip.sh
+https://ghproxy.net/https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/cfip.sh
 ```
