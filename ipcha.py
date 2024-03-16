@@ -57,6 +57,7 @@ def main():
     # 远程地址列表
     remote_urls = [
         'https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/ip.txt',  
+        'https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/ziyongcl.txt',
         'https://raw.githubusercontent.com/ymyuuu/IPDB/main/bestproxy.txt'  
     ]
     # 读取IP地址
