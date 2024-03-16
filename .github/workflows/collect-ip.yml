@@ -33,9 +33,9 @@ jobs:
       run: |
         python ${{ github.workspace }}/ipcha.py 
 
-    - name: Run ipfj script
-      run: |
-        python ${{ github.workspace }}/ipfj.py
+    #- name: Run ipfj script
+     # run: |
+        #python ${{ github.workspace }}/ipfj.py
 
     - name: Commit and push changes
       run: |
