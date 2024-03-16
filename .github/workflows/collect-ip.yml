@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 */3 * * *' # 每3小时运行一次
   workflow_dispatch: # 允许手动触发
-  push: # 允许提交触发
+
 
 jobs:
 
@@ -25,16 +25,26 @@ jobs:
         pip install requests
         pip install beautifulsoup4
         
-    - name: Run script
+    - name: Run collect_ips script
       run: |
         python ${{ github.workspace }}/collect_ips.py
+        
+    - name: Run ipcha script
+      run: |
         python ${{ github.workspace }}/ipcha.py 
+
+    - name: Run ipfj script
+      run: |
+        python ${{ github.workspace }}/ipfj.py
+
     - name: Commit and push changes
       run: |
         git config --global user.email "chenhua.xu@qq.com"
         git config --global user.name "wokaotianshi123"
+        # 检查是否有文件更改，包括 ipfj 文件夹及其内容
         if [ -n "$(git status --porcelain)" ]; then
-          git add ip.txt jg.txt
+          # 添加所有更改的文件，包括 ipfj 文件夹
+          git add .
           git commit -m "Automatic update"
           git push
         else
