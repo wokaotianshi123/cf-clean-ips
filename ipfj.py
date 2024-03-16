@@ -19,7 +19,14 @@ for line in lines:
     # 分割IP地址和国家代码，strip()用于移除可能的空白字符，包括换行符
     ip, country_code = line.strip().split('#')
     country_code = country_code.strip()  # 移除换行符和可能的空格
-
+line = line.strip()
+parts = line.split('#')
+if len(parts) == 2:
+    ip, country_code = parts
+else:
+    print(f"Skipping line with incorrect format: {line}")
+    continue
+# ... 接下来的代码
     # 确保国家代码文件名是唯一的
     if country_code not in country_files:
         # 创建文本文件，文件名以国家代码为名
