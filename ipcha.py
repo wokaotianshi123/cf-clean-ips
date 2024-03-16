@@ -1,4 +1,5 @@
 import requests
+import os
 
 # 从远程地址读取IP地址
 def read_ips(*remote_urls):
@@ -14,7 +15,7 @@ def read_ips(*remote_urls):
 
 # 发送批量请求到IP-API.com并处理结果
 def get_geolocation_and_save(ips):
-    url = "http://ip-api.com/batch"
+    url = "http://ip-api.com/batch" 
     payload = [{'query': ip} for ip in ips]
     headers = {
         'Content-Type': 'application/json'
@@ -23,6 +24,12 @@ def get_geolocation_and_save(ips):
         response = requests.post(url, json=payload, headers=headers)
         if response.status_code == 200:
             results = response.json()
+            # 检查文件是否存在，如果存在则删除
+            if os.path.exists('jg.txt'):
+                os.remove('jg.txt')
+            if os.path.exists('jgb.txt'):
+                os.remove('jgb.txt')
+            
             with open('jg.txt', 'a') as file_jg, open('jgb.txt', 'a') as file_jgb:
                 for item in results:
                     if 'query' in item and 'countryCode' in item:
@@ -49,8 +56,8 @@ def get_geolocation_and_save(ips):
 def main():
     # 远程地址列表
     remote_urls = [
-        'https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/ip.txt', 
-        'https://raw.githubusercontent.com/ymyuuu/IPDB/main/bestproxy.txt' 
+        'https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/ip.txt',  
+        'https://raw.githubusercontent.com/ymyuuu/IPDB/main/bestproxy.txt'  
     ]
     # 读取IP地址
     ips = read_ips(*remote_urls)
