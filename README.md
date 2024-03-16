@@ -12,4 +12,5 @@ https://stock.hostmonit.com/CloudFlareYes
 
 cfip脚本可以在手机termux上使用
 ```
+https://https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/cfip.sh
 ```
