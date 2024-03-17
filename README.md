@@ -15,3 +15,8 @@ cfip脚本可以在手机termux上使用
 curl -sSL https://ghproxy.net/https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/cfip.sh -o cfip.sh && chmod +x cfip.sh && bash cfip.sh
 
 ```
+enpip脚本也可以在手机termux上使用
+```
+curl -sSL https://ghproxy.net/https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/cfip.sh -o cfip.sh && chmod +x cfip.sh && bash cfip.sh
+
+```
