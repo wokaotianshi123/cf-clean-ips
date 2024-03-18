@@ -13,7 +13,15 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-      
+    
+    - name: Delete workflow runs
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
+        token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        retain_days: 2
+        keep_minimum_runs: 6
+        
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
