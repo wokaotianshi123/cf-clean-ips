@@ -56,9 +56,8 @@ def get_geolocation_and_save(ips):
 def main():
     # 远程地址列表
     remote_urls = [
-        'https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/ip.txt',  
-        'https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/ziyongcl.txt',
-        'https://raw.githubusercontent.com/ymyuuu/IPDB/main/bestproxy.txt'  
+        'https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/jgb.txt',  
+        
     ]
     # 读取IP地址
     ips = read_ips(*remote_urls)
