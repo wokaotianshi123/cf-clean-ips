@@ -8,7 +8,7 @@ urls = [
         
         'https://ip.164746.xyz',
         'https://cf.090227.xyz',
-        'https://monitor.gacjie.cn/page/cloudflare/ipv4.html'
+        #'https://monitor.gacjie.cn/page/cloudflare/ipv4.html'
         ]
 
 # 正则表达式用于匹配IP地址
