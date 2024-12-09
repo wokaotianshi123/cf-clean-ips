@@ -1,6 +1,6 @@
 每3小时自动抓取
 '''
-https://monitor.gacjie.cn/page/cloudflare/ipv4.html
+https://www.wetest.vip/page/cloudflare/address_v4.html
 '''
 和
 '''
