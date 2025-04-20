@@ -1,7 +1,7 @@
 import requests
 import os
+import time
 
-# 从远程地址读取IP地址
 def read_ips(*remote_urls):
     ips = []
     for remote_url in remote_urls:
@@ -9,57 +9,50 @@ def read_ips(*remote_urls):
             response = requests.get(remote_url)
             response.raise_for_status()
             ips.extend(response.text.splitlines())
-        except requests.exceptions.RequestException as e:
-            print(f"An error occurred while fetching IPs from {remote_url}: {e}")
+        except Exception as e:
+            print(f"Error fetching IPs: {e}")
     return ips
 
-# 发送批量请求到IP-API.com并处理结果
 def get_geolocation_and_save(ips):
-    url = "http://ip-api.com/batch" 
-    payload = [{'query': ip} for ip in ips]
+    url = "http://ip-api.com/batch"
     headers = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Python/Requests'
     }
-    try:
-        response = requests.post(url, json=payload, headers=headers)
-        if response.status_code == 200:
-            results = response.json()
-            # 检查文件是否存在，如果存在则删除
-            if os.path.exists('jg.txt'):
-                os.remove('jg.txt')
-            if os.path.exists('jgb.txt'):
-                os.remove('jgb.txt')
-            
-            with open('jg.txt', 'a') as file_jg, open('jgb.txt', 'a') as file_jgb:
-                for item in results:
-                    if 'query' in item and 'countryCode' in item:
-                        # 完整的IP#countrycode记录
-                        output_jg = f"{item['query']}#{item['countryCode']}"
-                        file_jg.write(output_jg + '\n')
-                        # 仅IP地址的记录
-                        output_jgb = f"{item['query']}"
-                        file_jgb.write(output_jgb + '\n')
-                        print(output_jg)  # 打印完整的IP#countrycode记录
-                    elif 'query' in item:
-                        # 仅IP地址的记录
-                        output_jgb = f"{item['query']}"
-                        file_jgb.write(output_jgb + '\n')
-                        print(output_jgb)  # 打印仅IP地址的记录
-                    else:
-                        print(f"Incomplete data for IP: {item['query']}")
-        else:
-            print(f"Error: Received response with status code {response.status_code}")
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred while processing geolocation: {e}")
+    
+    batch_size = 100  # 每批最多100个IP
+    for i in range(0, len(ips), batch_size):
+        batch_ips = ips[i:i+batch_size]
+        try:
+            response = requests.post(url, json=batch_ips, headers=headers)
+            if response.status_code == 200:
+                process_response(response.json())
+            else:
+                print(f"Batch {i//batch_size} failed: {response.status_code} - {response.text}")
+        except Exception as e:
+            print(f"Request error: {e}")
+        time.sleep(4)  # 控制请求频率
 
-# 主函数
+def process_response(results):
+    if os.path.exists('jg.txt'):
+        os.remove('jg.txt')
+    if os.path.exists('jgb.txt'):
+        os.remove('jgb.txt')
+    
+    with open('jg.txt', 'a') as f_jg, open('jgb.txt', 'a') as f_jgb:
+        for item in results:
+            if item.get('status') == 'success':
+                line = f"{item['query']}#{item['countryCode']}"
+                f_jg.write(line + '\n')
+                f_jgb.write(item['query'] + '\n')
+                print(line)
+            else:
+                print(f"Failed IP: {item.get('query', 'Unknown')} - {item.get('message')}")
+
 def main():
-    # 远程地址列表
     remote_urls = [
-        'https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/ip.txt',  
-        
+        'https://raw.githubusercontent.com/wokaotianshi123/cf-clean-ips/main/ip.txt'
     ]
-    # 读取IP地址
     ips = read_ips(*remote_urls)
     if ips:
         get_geolocation_and_save(ips)
